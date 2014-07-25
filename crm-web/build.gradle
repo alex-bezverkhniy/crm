@@ -1,0 +1,27 @@
+//apply plugin: 'war'
+//apply plugin: 'jetty'
+
+jar {
+    baseName = 'crm-web'
+    version =  '0.1.0'
+}
+
+
+
+dependencies {
+    compile project(':crm-common')
+    // Spring
+    compile("org.springframework:spring-webmvc")
+    compile("org.springframework:spring-web")
+    compile("org.springframework:spring-oxm")
+
+    // Spring Data REST
+    compile("org.springframework.data:spring-data-jpa")
+    compile("org.springframework.data:spring-data-rest-webmvc")
+
+    compile("org.springframework.boot:spring-boot-starter-web")
+
+	//runtime("javax.servlet:jstl:1.1.2")
+}
+
+//jettyRunWar.contextPath = ''

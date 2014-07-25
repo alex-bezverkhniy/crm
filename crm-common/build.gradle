@@ -1,0 +1,21 @@
+jar {
+    baseName = 'crm-common'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repo.spring.io/libs-milestone" }
+    maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+}
+
+dependencies {
+
+
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.8'
+}
+
+

@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+jar {
+    baseName = 'crm-core'
+    version =  '0.1.0'
+}
+
+dependencies {
+    compile project(':crm-common')
+
+    // Spring.IO
+    versionManagement 'io.spring.platform:platform-versions:1.0.1.RELEASE@properties'
+
+    compile("org.springframework.boot:spring-boot-starter-data-rest")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-security")
+
+    compile("org.springframework.security:spring-security-core")
+
+    compile("com.h2database:h2")
+
+    compile("org.atteo:evo-inflector:1.2")
+
+    // Spring test
+    testCompile("org.springframework:spring-test")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+
+    // jUnit
+    testCompile("junit:junit")
+
+}
