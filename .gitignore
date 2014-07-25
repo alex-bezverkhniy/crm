@@ -1,0 +1,28 @@
+# use glob syntax.
+syntax: glob
+*.class
+*~
+*.bak
+*.off
+*.old
+.DS_Store
+
+# Gradle
+.gradle
+.settings
+
+# building
+target
+bin 
+build
+
+# Eclipse
+.classpath
+.project
+.settings
+
+# IDEA
+*.iml
+*.ipr
+*.iws
+.idea/*.*
