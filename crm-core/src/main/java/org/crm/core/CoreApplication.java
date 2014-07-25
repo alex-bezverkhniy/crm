@@ -4,16 +4,24 @@ import org.crm.common.domain.User;
 import org.crm.common.domain.UserRole;
 import org.crm.core.repositories.UserRepository;
 import org.crm.core.repositories.UserRoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
+
+import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan
@@ -75,6 +83,27 @@ public class CoreApplication {
         userRepository.save(user);
 
         // Security
-        
+
+    }
+
+    @Order(Ordered.HIGHEST_PRECEDENCE + 10)
+    protected static class AuthenticationSecurity extends
+            GlobalAuthenticationConfigurerAdapter {
+
+        @Autowired
+        private DataSource dataSource;
+
+        @Override
+        public void init(AuthenticationManagerBuilder auth) throws Exception {
+
+            auth.inMemoryAuthentication()
+                    .withUser("admin").password("admin").roles("ADMIN", "USER").and()
+                    .withUser("user").password("user").roles("USER");
+            /*
+            auth.jdbcAuthentication().dataSource(this.dataSource).withUser("admin")
+                    .password("admin").roles("ADMIN", "USER").and().withUser("user")
+                    .password("user").roles("USER");
+            */
+        }
     }
 }
